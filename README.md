@@ -3,7 +3,7 @@
 This repository contains code implements of the computational workflow for:
 
 - assembling *L. monocytogenes* genomes and calling MLST types,  
-- mapping type-specific k-mers to assemblies to obtain candidate regions, and  
+- mapping type-specific k-mers to assemblies to obtain candidate regions, 
 - designing and cross-checking type-specific PCR primers.
 
 ---
@@ -31,13 +31,11 @@ Used internally by the shell pipelines:
 - `get-primers-fasta.pl` – convert primer table to FASTA with metadata in headers.
 - `parse_blast.pl`, `filter-blast-results.pl` – parse BLAST of primers vs non-target STs and keep “good” primers.
 
-You normally do not need to call the Perl scripts directly; they are used by the shell pipelines.
+You normally do not need to call the Perl scripts directly as they are used by the shell pipelines.
 
 ---
 
 ## Requirements
-
-Unix-like system with:
 
 - [`GenomeTester4`](https://github.com/bioinfo-ut/GenomeTester4)
 - [`fastp`](https://github.com/OpenGene/fastp)
@@ -88,7 +86,28 @@ perl filter-assembly.pl read_1.fastq read_2.fastq OUTPUT_DIR/contigs.fasta
 
 ---
 
-### 2. Primer design for a given sequence type
+### 2. Finding unique k-mers for a given sequence type
+
+At first create a full list of k-mers for each sample:
+
+```bash
+glistmaker read_1.fastq read_2.fastq --wordlength 32 -o sample_name.list
+```
+
+Then create a common list of non-targets:
+
+```bash
+glistcompare sample_name1.list sample_name2.list --union --cutoff 5 -o nontargets
+```
+
+```bash
+glistcompare nontargets_32_union.list target_sample_name.list --intersection --cutoff 5 -o targets
+
+```
+
+---
+
+### 3. Primer design for a given sequence type
 
 ```bash
 bash run-primer-design.sh ST
@@ -122,7 +141,7 @@ Typical files include:
 
 ---
 
-### 3. Cross-reactivity check of primers
+### 4. Cross-reactivity check of primers
 
 ```bash
 bash run-blast.sh ST
