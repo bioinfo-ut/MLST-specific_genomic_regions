@@ -44,14 +44,13 @@ You normally do not need to call the Perl scripts directly; they are used by the
 
 Unix-like system with:
 
-- `bash`
+- [`GenomeTester4`](https://github.com/bioinfo-ut/GenomeTester4)
 - [`fastp`](https://github.com/OpenGene/fastp)
 - [`SPAdes`](https://github.com/ablab/spades)
 - [`mlst`](https://github.com/tseemann/mlst) with *L. monocytogenes* scheme
-- NCBI BLAST+ (`makeblastdb`, `blastn`)
-- `primer3_core`
-- Perl
-- Standard command-line tools (`awk`, `sort`, etc.)
+- [`primer3_core`](https://github.com/primer3-org/primer3)
+- [`NCBI BLAST`] (https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/)
+- [`BioPerl`](https://github.com/bioperl/bioperl-live)
 
 Some inputs (k-mer sets, intersect logs, coverage statistics, BLAST databases for each ST) are produced by upstream GenomeTester4-based steps that are **not** in this `code/` directory. Those files must be prepared beforehand as described in the Methods section of the manuscript.
 
