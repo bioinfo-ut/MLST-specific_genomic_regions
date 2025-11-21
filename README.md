@@ -48,7 +48,7 @@ Unix-like system with:
 - [`BioPerl`](https://github.com/bioperl/bioperl-live)
 
 Optional:
-- [`MultiPLX`](~https://bioinfo.ut.ee/download/)
+- [`MultiPLX`](https://bioinfo.ut.ee/download/)
 
 Some inputs (k-mer sets, intersect logs, coverage statistics, BLAST databases for each ST) are produced by upstream GenomeTester4-based steps that are **not** in this `code/` directory. Those files must be prepared beforehand as described in the Methods section of the manuscript.
 
