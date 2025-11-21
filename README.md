@@ -161,10 +161,16 @@ Final primer sets for the paper were obtained by combining “good” primers ac
 If you use these scripts or the overall workflow, please cite:
 
 > **Andreson R., Brauer A., Kaplinski L., Külaots M., Saumaa S., Kurg A., Remm M.**  
-> *K-mer based method for finding sequence type specific PCR primers for* Listeria monocytogenes.
+> K-mer based method for finding sequence type specific PCR primers for *Listeria monocytogenes*.
 
 If you use GenomeTester4 package software, please cite:
 
-
+> **Kaplinski L, Lepamets M, Remm M. (2015).
+> GenomeTester4: a toolkit for performing basic set operations – union, intersection and complement on k-mer lists. GigaScience, 4:58
+> GigaScience, 4:58 [https://doi.org/10.1186/s13742-015-0097-y]
 
 ---
+
+## Contact
+
+For questions or contributions, please open an issue in GitHub or contact the developers reidar.andreson@ut.ee.
