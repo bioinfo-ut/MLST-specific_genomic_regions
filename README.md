@@ -1,11 +1,6 @@
 # MLST-specific genomic regions
 
-This repository contains the scripts used in
-
-> **Andreson R., Brauer A., Kaplinski L., Külaots M., Saumaa S., Kurg A., Remm M.**  
-> *K-mer based method for finding sequence type specific PCR primers for* Listeria monocytogenes.
-
-The code implements the computational workflow for:
+This repository contains code implements of the computational workflow for:
 
 - assembling *L. monocytogenes* genomes and calling MLST types,  
 - mapping type-specific k-mers to assemblies to obtain candidate regions, and  
@@ -49,7 +44,7 @@ Unix-like system with:
 - [`SPAdes`](https://github.com/ablab/spades)
 - [`mlst`](https://github.com/tseemann/mlst) with *L. monocytogenes* scheme
 - [`primer3_core`](https://github.com/primer3-org/primer3)
-- [`NCBI BLAST`] (https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/)
+- [`NCBI BLAST+`](https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/)
 - [`BioPerl`](https://github.com/bioperl/bioperl-live)
 
 Some inputs (k-mer sets, intersect logs, coverage statistics, BLAST databases for each ST) are produced by upstream GenomeTester4-based steps that are **not** in this `code/` directory. Those files must be prepared beforehand as described in the Methods section of the manuscript.
