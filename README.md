@@ -47,6 +47,9 @@ Unix-like system with:
 - [`NCBI BLAST+`](https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/)
 - [`BioPerl`](https://github.com/bioperl/bioperl-live)
 
+Optional:
+- [`MultiPLX`](~https://bioinfo.ut.ee/download/)
+
 Some inputs (k-mer sets, intersect logs, coverage statistics, BLAST databases for each ST) are produced by upstream GenomeTester4-based steps that are **not** in this `code/` directory. Those files must be prepared beforehand as described in the Methods section of the manuscript.
 
 ---
@@ -146,7 +149,7 @@ For each non-target ST2:
 - `ST<ST>_vs_ST<ST2>.blastn` and `.parsed.txt`
 - `ST<ST>_vs_ST<ST2>_good_primers.txt` – primers that passed filters against that ST.
 
-Final primer sets for the paper were obtained by combining “good” primers across all non-target STs and then selecting panels manually / with MultiPLX.
+Final primer sets for the paper were obtained by combining “good” primers across all non-target STs and then selecting panels manually or with [MultiPLX](https://bioinfo.ut.ee/download/).
 
 ---
 
