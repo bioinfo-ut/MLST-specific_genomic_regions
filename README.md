@@ -107,14 +107,18 @@ For target samples, create an intersection list of k-mers (only shared k-mers):
 glistcompare target_1.list target_2.list --intersection --cutoff 5 -o targets
 ```
 
-Finally gemerate complement (words in the first file and NOT in second file) of words in both input lists. The frequencies in final list are the original frequencies in the first list.
+Then generate a complement (k-mers in the first file and NOT in second file) of words in both lists:
 
 ```bash
 glistcompare targets_32_intrsec.list nontargets_32_union.list --difference --cutoff 5 -o ST<ST>_kmers
-
 ```
-
 Where `ST` is the MLST sequence type number (e.g. `5`, `121`, `451`).
+
+Finally, generate a list of all unique k-mers with their frequencies:
+
+```bash
+glistquery ST<ST>_kmers_32_0_diff1.list > ST<ST>_kmers.txt
+```
 
 ---
 
@@ -128,27 +132,27 @@ Where `ST` is the MLST sequence type number (e.g. `5`, `121`, `451`).
 
 **Expects in the current working directory**
 
-- `data/ST<ST>_kmers.txt` – list of ST-specific k-mers (one per line).
-- `data/ST<ST>_intersect_log.txt` – log listing samples used for the ST core.
-- `contig_statistics.txt` – per-contig coverage/length stats used by `get-best-contig-for-ST.pl`.
-- All helper Perl scripts and `primer3_core` available in `PATH`.
+- `data/ST<ST>_kmers.txt` – list of ST-specific k-mers (one per line)
+- `data/ST<ST>_intersect_log.txt` – list of sample names used for the ST
+- `contig_statistics.txt` – per-contig coverage/length stats used by `get-best-contig-for-ST.pl`
+- All helper Perl scripts and `primer3_core` available in `PATH`
 
 **Does:**
 
-1. Selects the “best” contig for the given ST using `get-best-contig-for-ST.pl`.
-2. Converts the k-mer list to FASTA (`make-fasta-from-list.pl`).
-3. Builds a BLAST database from the contig and runs `blastn` with 100% identity / 100% coverage.
-4. Cleans BLAST output (`fix-columns.pl`), merges nearby hits into regions (`extract-genomic-regions.pl`).
-5. Calls `run-primer3.pl` to design primers (60–1000 bp amplicons, 18–22 nt primers).
+1. Selects the “best” contig for the given ST using `get-best-contig-for-ST.pl`
+2. Converts the k-mer list to FASTA (`make-fasta-from-list.pl`)
+3. Builds a BLAST database from the contig and runs `blastn` with 100% identity / 100% coverage
+4. Cleans BLAST output (`fix-columns.pl`), merges nearby hits into regions (`extract-genomic-regions.pl`)
+5. Calls `run-primer3.pl` to design primers (60–1000 bp amplicons, 18–22 nt primers)
 
 **Outputs (in `ST<ST>_primers/`)**
 
 Typical files include:
 
-- `contigs.fasta` – selected contig for this ST.
-- `ST<ST>_kmers.fasta` – k-mers used as queries.
-- `ST<ST>_regions.fasta` – candidate genomic regions.
-- `ST<ST>_primers.txt` – primer list (used by downstream scripts).
+- `contigs.fasta` – selected contig for this ST
+- `ST<ST>_kmers.fasta` – k-mers used as queries
+- `ST<ST>_regions.fasta` – candidate genomic regions
+- `ST<ST>_primers.txt` – primer list (used by downstream scripts)
 
 ---
 
@@ -160,24 +164,24 @@ bash run-blast.sh ST
 
 **Does:**
 
-1. Converts `ST<ST>_primers/ST<ST>_primers.txt` to FASTA (`get-primers-fasta.pl`).
+1. Converts `ST<ST>_primers/ST<ST>_primers.txt` to FASTA (`get-primers-fasta.pl`)
 2. For a hard-coded list of other STs (5, 7, 8, 9, 29, 37, 87, 101, 121, 155, 173, 177, 425, 451, 551, 580, 1247):
-   - runs `blastn` of primers vs each non-target ST database,
-   - parses the results (`parse_blast.pl`),
-   - filters to retain primers that meet the specificity criteria (`filter-blast-results.pl`).
+   - runs `blastn` of primers vs each non-target ST database
+   - parses the results (`parse_blast.pl`)
+   - filters to retain primers that meet the specificity criteria (`filter-blast-results.pl`)
 
 **Expects in the current working directory**
 
-- `ST<ST>_primers/ST<ST>_primers.txt` from `run-primer-design.sh`.
-- BLAST databases for each non-target ST named consistently with the BLAST commands in the script.
-- Helper Perl scripts.
+- `ST<ST>_primers/ST<ST>_primers.txt` from `run-primer-design.sh`
+- BLAST databases for each non-target ST named consistently with the BLAST commands in the script
+- Helper Perl scripts
 
 **Outputs (in `ST<ST>_primers/`)**
 
 For each non-target ST2:
 
 - `ST<ST>_vs_ST<ST2>.blastn` and `.parsed.txt`
-- `ST<ST>_vs_ST<ST2>_good_primers.txt` – primers that passed filters against that ST.
+- `ST<ST>_vs_ST<ST2>_good_primers.txt` – primers that passed filters against that ST
 
 Final primer sets for the paper were obtained by combining “good” primers across all non-target STs and then selecting panels manually or with [MultiPLX](https://bioinfo.ut.ee/download/).
 
