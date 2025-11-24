@@ -2,10 +2,10 @@
 
 This repository contains code implements of the computational workflow for:
 
-- assembling *L. monocytogenes* genomes and calling MLST types,  
+- assembling *L. monocytogenes* genomes and calling MLST types
 - finding type-specific k-mers from reads
-- mapping type-specific k-mers to assemblies to obtain candidate regions, 
-- designing and cross-checking type-specific PCR primers.
+- mapping type-specific k-mers to assemblies to obtain candidate regions
+- designing and cross-checking type-specific PCR primers
 
 ---
 
@@ -15,18 +15,18 @@ All scripts referenced in the paper are in the `code/` directory:
 
 **Main shell pipelines (entry points)**
 
-- `run-assembly-and-MLST.sh` – trim reads, assemble with SPAdes, call MLST.
-- `run-primer-design.sh` – for a given ST, map type-specific k-mers, extract regions, design primers.
+- `run-assembly-and-MLST.sh` – trim reads, assemble with SPAdes, call MLST
+- `run-primer-design.sh` – for a given ST, map type-specific k-mers, extract regions, design primers
 - `run-blast.sh` – check designed primers against other STs to remove cross-reactive primers.
 
 **Helper Perl scripts**
 
 Used internally by the shell pipelines:
 
-- `filter-assembly.pl` – compute N50, longest contig and average depth for a sample.
-- `make-fasta-from-list.pl` – convert k-mer lists to FASTA.
-- `get-best-contig-for-ST.pl` – choose best contig for a given ST from coverage stats.
-- `extract-genomic-regions.pl` – merge BLAST hits into genomic regions and extract sequences.
+- `filter-assembly.pl` – compute N50, longest contig and average depth for a sample
+- `make-fasta-from-list.pl` – convert k-mer lists to FASTA
+- `get-best-contig-for-ST.pl` – choose best contig for a given ST from coverage stats
+- `extract-genomic-regions.pl` – merge BLAST hits into genomic regions and extract sequences
 - `fix-columns.pl` – clean/normalize BLAST tabular output.
 - `run-primer3.pl` – wrapper for `primer3_core` (60–1000 bp products, 18–22 nt primers).
 - `get-primers-fasta.pl` – convert primer table to FASTA with metadata in headers.
@@ -63,20 +63,20 @@ bash run-assembly-and-MLST.sh sample_PE_1.fastq sample_PE_2.fastq OUTPUT_DIR
 
 **Does:**
 
-1. Trims adapters and low-quality bases with `fastp`.
-2. Assembles the genome with SPAdes (`--isolate`).
-3. Runs `mlst` on the resulting `contigs.fasta`.
+1. Trims adapters and low-quality bases with `fastp`
+2. Assembles the genome with SPAdes (`--isolate`)
+3. Runs `mlst` on the resulting `contigs.fasta`
 
 **Inputs**
 
-- `sample_1.fastq`, `sample_2.fastq` – raw paired-end reads.
-- `OUTPUT_DIR` – directory to create; will contain cleaned reads, SPAdes output and MLST result.
+- `sample_1.fastq`, `sample_2.fastq` – raw paired-end reads
+- `OUTPUT_DIR` – directory to create; will contain cleaned reads, SPAdes output and MLST result
 
 **Outputs (in `OUTPUT_DIR`)**
 
-- `*.clean.fq` – trimmed reads.
-- `contigs.fasta` – assembled genome.
-- `*.mlst.txt` – MLST call for this sample.
+- `*.clean.fq` – trimmed reads
+- `contigs.fasta` – assembled genome
+- `*.mlst.txt` – MLST call for this sample
 
 You can post-filter assemblies using `filter-assembly.pl`:
 
@@ -127,8 +127,7 @@ glistquery ST<ST>_kmers_32_0_diff1.list > ST<ST>_kmers.txt
 ```bash
 bash run-primer-design.sh ST
 ```
-
-Where `ST` is the MLST sequence type number (e.g. `5`, `121`, `451`).
+Where `ST` is the MLST sequence type number (e.g. `5`, `121`, `451`)-
 
 **Expects in the current working directory**
 
