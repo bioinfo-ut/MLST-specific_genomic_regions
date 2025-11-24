@@ -3,6 +3,7 @@
 This repository contains code implements of the computational workflow for:
 
 - assembling *L. monocytogenes* genomes and calling MLST types,  
+- finding type-specific k-mers from reads
 - mapping type-specific k-mers to assemblies to obtain candidate regions, 
 - designing and cross-checking type-specific PCR primers.
 
@@ -57,7 +58,7 @@ Some inputs (k-mer sets, intersect logs, coverage statistics, BLAST databases fo
 ### 1. Assembly and MLST typing
 
 ```bash
-bash run-assembly-and-MLST.sh read_1.fastq read_2.fastq OUTPUT_DIR
+bash run-assembly-and-MLST.sh sample_PE_1.fastq sample_PE_2.fastq OUTPUT_DIR
 ```
 
 **Does:**
@@ -68,7 +69,7 @@ bash run-assembly-and-MLST.sh read_1.fastq read_2.fastq OUTPUT_DIR
 
 **Inputs**
 
-- `read_1.fastq`, `read_2.fastq` – raw paired-end reads.
+- `sample_1.fastq`, `sample_2.fastq` – raw paired-end reads.
 - `OUTPUT_DIR` – directory to create; will contain cleaned reads, SPAdes output and MLST result.
 
 **Outputs (in `OUTPUT_DIR`)**
@@ -80,7 +81,7 @@ bash run-assembly-and-MLST.sh read_1.fastq read_2.fastq OUTPUT_DIR
 You can post-filter assemblies using `filter-assembly.pl`:
 
 ```bash
-perl filter-assembly.pl read_1.fastq read_2.fastq OUTPUT_DIR/contigs.fasta
+perl filter-assembly.pl sample_1.fastq sample_2.fastq OUTPUT_DIR/contigs.fasta
 # prints: sample_id  N50  longest_contig  avg_depth
 ```
 
@@ -88,22 +89,32 @@ perl filter-assembly.pl read_1.fastq read_2.fastq OUTPUT_DIR/contigs.fasta
 
 ### 2. Finding unique k-mers for a given sequence type
 
-At first create a full list of k-mers for each sample:
+At first create a full list of k-mers for each sample (reads):
 
 ```bash
-glistmaker read_1.fastq read_2.fastq --wordlength 32 -o sample_name.list
+glistmaker sample_1.fastq sample_2.fastq --wordlength 32 -o sample
 ```
 
-Then create a common list of non-targets:
+For non-target samples, create a common list of k-mers (union of all k-mers):
 
 ```bash
-glistcompare sample_name1.list sample_name2.list --union --cutoff 5 -o nontargets
+glistcompare nontarget_1.list nontarget_2.list --union --cutoff 5 -o nontargets
 ```
+
+For target samples, create an intersection list of k-mers (only shared k-mers):
 
 ```bash
-glistcompare nontargets_32_union.list target_sample_name.list --intersection --cutoff 5 -o targets
+glistcompare target_1.list target_2.list --intersection --cutoff 5 -o targets
+```
+
+Finally gemerate complement (words in the first file and NOT in second file) of words in both input lists. The frequencies in final list are the original frequencies in the first list.
+
+```bash
+glistcompare targets_32_intrsec.list nontargets_32_union.list --difference --cutoff 5 -o ST<ST>_kmers
 
 ```
+
+Where `ST` is the MLST sequence type number (e.g. `5`, `121`, `451`).
 
 ---
 
