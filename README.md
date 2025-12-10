@@ -192,7 +192,7 @@ If you use these scripts or the overall workflow, please cite:
 
 **Andreson R., Brauer A., Kaplinski L., Külaots M., Saumaa S., Kurg A., Remm M.**
 K-mer based method for finding sequence type specific PCR primers for *Listeria monocytogenes*.
-medRxiv [https://www.medrxiv.org/content/10.64898/2025.12.01.25341377v1]
+medRxiv [https://www.medrxiv.org/content/10.64898/2025.12.01.25341377v2]
 
 If you use GenomeTester4 package software, please cite:
 
