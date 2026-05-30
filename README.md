@@ -38,16 +38,21 @@ You normally do not need to call the Perl scripts directly as they are used by t
 
 ## Requirements
 
-- [`GenomeTester4`](https://github.com/bioinfo-ut/GenomeTester4)
-- [`fastp`](https://github.com/OpenGene/fastp)
-- [`SPAdes`](https://github.com/ablab/spades)
-- [`mlst`](https://github.com/tseemann/mlst) with *L. monocytogenes* scheme
-- [`primer3_core`](https://github.com/primer3-org/primer3)
-- [`NCBI BLAST+`](https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/)
-- [`BioPerl`](https://github.com/bioperl/bioperl-live)
+- [`GenomeTester4`](https://github.com/bioinfo-ut/GenomeTester4) 4.2.8
+- [`fastp`](https://github.com/OpenGene/fastp) >= 0.21 
+- [`SPAdes`](https://github.com/ablab/spades) >= 3.15
+- [`mlst`](https://github.com/tseemann/mlst) >= 2.19 with *L. monocytogenes* scheme
+- [`primer3_core`](https://github.com/primer3-org/primer3) >= 2.5.0
+- [`NCBI BLAST+`](https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/) >= 2.13
+- [`BioPerl`](https://github.com/bioperl/bioperl-live) >= 1.7.4
 
 Optional:
-- [`MultiPLX`](https://bioinfo.ut.ee/download/)
+- [`MultiPLX`](https://bioinfo.ut.ee/download/) 1.4
+
+Dependencies:
+
+- [`Perl`](https://www.perl.org/) >= 5.26
+
 
 Some inputs (k-mer sets, intersect logs, coverage statistics, BLAST databases for each ST) are produced by upstream GenomeTester4-based steps that are **not** in this `code/` directory. Those files must be prepared beforehand as described in the Methods section of the manuscript.
 
