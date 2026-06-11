@@ -47,7 +47,7 @@ You normally do not need to call the Perl scripts directly as they are used by t
 - [`BioPerl`](https://github.com/bioperl/bioperl-live) >= 1.7.4
 
 Optional:
-- [`MultiPLX`](https://bioinfo.ut.ee/download/) 1.4
+- [`MultiPLX`](https://bioinfo.ut.ee/software/download-datasets-and-software/) 1.4
 
 Dependencies:
 
